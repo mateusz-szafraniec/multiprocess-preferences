@@ -18,9 +18,9 @@ import android.util.Log;
 
 public class PreferencesProvider extends ContentProvider implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-	public static final String TAG = PreferencesProvider.class.getName();
+	private static final String TAG = PreferencesProvider.class.getName();
 
-	private static String PREFFERENCE_AUTHORITY;
+	private static String PREFERENCE_AUTHORITY;
 	private static Uri BASE_URI;
 
 	private static final int MATCH_DATA = 0x010000;
@@ -31,14 +31,14 @@ public class PreferencesProvider extends ContentProvider implements SharedPrefer
 
 	private static void init(Context context){
 		
-		PREFFERENCE_AUTHORITY = context.getResources().getString(R.string.multiprocess_preferences_authority);
+		PREFERENCE_AUTHORITY = context.getResources().getString(R.string.multiprocess_preferences_authority);
 		
 		matcher = new UriMatcher(UriMatcher.NO_MATCH);
-		matcher.addURI(PREFFERENCE_AUTHORITY, "*/*", MATCH_DATA);
+		matcher.addURI(PREFERENCE_AUTHORITY, "*/*", MATCH_DATA);
 		
-		BASE_URI = Uri.parse("content://" + PREFFERENCE_AUTHORITY);
+		BASE_URI = Uri.parse("content://" + PREFERENCE_AUTHORITY);
 
-		Log.d(TAG, String.format("Authority: %s", PREFFERENCE_AUTHORITY));
+		Log.d(TAG, String.format("Authority: %s", PREFERENCE_AUTHORITY));
 		Log.d(TAG, String.format("Base Uri: %s ", BASE_URI));
 	}
 	
@@ -54,7 +54,7 @@ public class PreferencesProvider extends ContentProvider implements SharedPrefer
 	
 	@Override
 	public String getType(Uri uri) {
-		return ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd." + PREFFERENCE_AUTHORITY + ".item";
+		return ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd." + PREFERENCE_AUTHORITY + ".item";
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class PreferencesProvider extends ContentProvider implements SharedPrefer
 				} else if (Types.BOOLEAN_TYPE.equals(type)) {
 					object = prefs.getBoolean(key, false) ? 1 : 0;
 				} else if (Types.LONG_TYPE.equals(type)) {
-					object = prefs.getLong(key, 0l);
+					object = prefs.getLong(key, 0L);
 				} else if (Types.INT_TYPE.equals(type)) {
 					object = prefs.getInt(key, 0);
 				} else if (Types.FLOAT_TYPE.equals(type)) {
@@ -172,7 +172,7 @@ public class PreferencesProvider extends ContentProvider implements SharedPrefer
 		}
 	}
 
-	public static final Uri getContentUri(Context context, String key, String type){
+	public static Uri getContentUri(Context context, String key, String type){
 		if(BASE_URI == null){
 			init(context);
 		}

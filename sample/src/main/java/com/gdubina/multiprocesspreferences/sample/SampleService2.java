@@ -15,7 +15,7 @@ import com.gdubina.multiprocesspreferences.MultiprocessSharedPreferences;
 public class SampleService2 extends Service implements  SharedPreferences.OnSharedPreferenceChangeListener,
         MultiprocessSharedPreferences.OnMultiprocessPreferenceChangeListener {
 
-    public static final String LOG_TAG = SampleService2.class.getName();
+    private static final String LOG_TAG = SampleService2.class.getName();
 
     private SharedPreferences mPrefs;
 

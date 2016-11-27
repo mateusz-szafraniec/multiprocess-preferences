@@ -1,6 +1,6 @@
 package com.gdubina.multiprocesspreferences;
 
-public class Types {
+class Types {
     public static final String TYPE = "type";
     public static final String KEY = "key";
 

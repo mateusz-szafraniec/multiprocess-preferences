@@ -8,13 +8,13 @@ import android.net.Uri;
 import java.util.Set;
 
 public class Editor implements SharedPreferences.Editor {
-    private Context context;
+    private final Context context;
 
     public Editor(Context context){
         this.context = context;
     }
 
-    private ContentValues values = new ContentValues();
+    private final ContentValues values = new ContentValues();
 
     @Override
     public void apply(){

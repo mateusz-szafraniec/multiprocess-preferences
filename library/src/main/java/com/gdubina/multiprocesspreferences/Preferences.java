@@ -16,12 +16,12 @@ import java.util.Set;
 
 public class Preferences implements MultiprocessSharedPreferences {
 
-    private Context context;
-    private List<WeakReference<OnMultiprocessPreferenceChangeListener>> listeners;
+    private final Context context;
+    private final List<WeakReference<OnMultiprocessPreferenceChangeListener>> listeners;
 
     public Preferences(Context context){
         this.context = context;
-        this.listeners = new ArrayList<WeakReference<OnMultiprocessPreferenceChangeListener>>();
+        this.listeners = new ArrayList<>();
         context.getContentResolver().registerContentObserver(
                 PreferencesProvider.getBaseUri(context), true, new Observer());
 
@@ -82,7 +82,7 @@ public class Preferences implements MultiprocessSharedPreferences {
     //This will be implemented later
     @Override
     public Set<String> getStringSet(String key, Set<String> defValues) {
-        return new HashSet<String>();
+        return new HashSet<>();
     }
 
     //Use registerOnMultiprocessPreferenceChangeListener(OnSharedPreferenceChangeListener listener) instead
@@ -98,14 +98,14 @@ public class Preferences implements MultiprocessSharedPreferences {
     @Override
     public void registerOnMultiprocessPreferenceChangeListener(OnMultiprocessPreferenceChangeListener listener) {
         if (listener != null) {
-            listeners.add(new WeakReference<OnMultiprocessPreferenceChangeListener>(listener));
+            listeners.add(new WeakReference<>(listener));
         }
     }
 
     @Override
     public void unregisterOnMultiprocessPreferenceChangeListener(OnMultiprocessPreferenceChangeListener listener) {
         if (listener != null) {
-            listeners.remove(new WeakReference<OnMultiprocessPreferenceChangeListener>(listener));
+            listeners.remove(new WeakReference<>(listener));
         }
     }
 
