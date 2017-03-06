@@ -132,13 +132,17 @@ public class Preferences implements MultiprocessSharedPreferences {
         public void onChange(boolean selfChange, Uri uri) {
             super.onChange(selfChange, uri);
             if (uri != null) {
-                final String key = uri.getPathSegments().get(0);
-                final String type = uri.getPathSegments().get(1);
-                for (WeakReference<OnMultiprocessPreferenceChangeListener> ref: listeners) {
-                    OnMultiprocessPreferenceChangeListener listener = ref.get();
-                    if (listener != null) {
-                        listener.onMultiProcessPreferenceChange(key, type);
+                try {
+                    final String key = uri.getPathSegments().get(0);
+                    final String type = uri.getPathSegments().get(1);
+                    for (WeakReference<OnMultiprocessPreferenceChangeListener> ref: listeners) {
+                        OnMultiprocessPreferenceChangeListener listener = ref.get();
+                        if (listener != null) {
+                            listener.onMultiProcessPreferenceChange(key, type);
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
